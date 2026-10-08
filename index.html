@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Portfolio</title>
+
+    <script>
+        try {
+            const savedTheme = localStorage.getItem("portfolio-theme");
+            if (["dark", "light"].includes(savedTheme)) {
+                document.documentElement.dataset.theme = savedTheme;
+            }
+        } catch {}
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-[#0D0D0D] text-white font-['Sora']
+    bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)]
+    bg-[size:43px_43px]">
+
+    <section
+        id="home"
+        class="relative min-h-screen overflow-hidden bg-[#0D0D0D]
+        bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)]
+        bg-[size:43px_43px]"
+    >
+        <nav class="fixed left-0 top-0 z-30 w-full
+           bg-[#0D0D0D]/80 backdrop-blur-md">
+
+            <div class="flex justify-center px-6 py-5">
+
+                <ul class="flex gap-8">
+
+                    <li>
+                        <a
+                            href="#home"
+                            class="text-base text-white transition hover:text-gray-400"
+                        >
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="#about"
+                            class="text-base text-white transition hover:text-gray-400"
+                        >
+                            About
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="#experience"
+                            class="text-base text-white transition hover:text-gray-400"
+                        >
+                            Experience
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="#projects"
+                            class="text-base text-white transition hover:text-gray-400"
+                        >
+                            Projects
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="#education"
+                            class="text-base text-white transition hover:text-gray-400"
+                        >
+                            Education
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="#contact"
+                            class="text-base text-white transition hover:text-gray-400"
+                        >
+                            Contact
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <button
+            id="theme-toggle"
+            type="button"
+            class="theme-toggle"
+            aria-label="Current theme: Dark. Activate to switch to Light."
+            title="Current theme: Dark. Activate to switch to Light."
+        >
+            <img
+                src="images/dark_mode_24dp_E3E3E3_FILL0_wght200_GRAD200_opsz24.svg"
+                alt=""
+                aria-hidden="true"
+                width="24"
+                height="24"
+            >
+        </button>
+
+        <div
+            class="relative z-10 flex min-h-screen
+            items-center justify-center px-10 text-center"
+        >
+
+            <div>
+
+                <p class="typing-text mb-6 text-sm font-medium uppercase tracking-[0.3em] text-gray-400">
+                     Welcome to my portfolio
+                </p>
+
+                <h1
+                    class="font-['Space_Mono'] text-4xl font-bold
+                    uppercase leading-[1.05] tracking-tight text-white
+                    sm:text-5xl md:text-6xl lg:text-7xl"
+                >
+                    Turning ideas into <br>
+                    digital solutions.
+                </h1>
+
+                <div class="mt-12 flex justify-center gap-5">
+
+                    <a
+                        href="#projects"
+                        class="rounded-full border border-transparent bg-white px-6 py-3
+                        text-sm font-semibold text-[#0D0D0D]
+                        transition hover:border-white hover:bg-[#0D0D0D] hover:text-white"
+                    >
+                        VIEW PROJECTS
+                    </a>
+
+                    <a
+                        href="#contact"
+                        class="rounded-full border border-white/60
+                        px-6 py-3 text-sm font-semibold text-white
+                        transition hover:border-white hover:bg-white
+                        hover:text-[#0D0D0D]"
+                    >
+                        CONTACT ME
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section
+        id="about"
+        class="min-h-screen px-6 py-24"
+    >
+        <div class="mx-auto max-w-6xl">
+            <div class="flex items-center gap-6">
+                <span class="h-px flex-1 bg-white/10"></span>
+                <h2 class="shrink-0 font-['Space_Mono'] text-sm font-bold tracking-[0.3em] text-gray-300">
+                    ABOUT ME
+                </h2>
+                <span class="h-px flex-1 bg-white/10"></span>
+            </div>
+
+            <div class="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
+                <div>
+                    <div class="flex items-center gap-5">
+                        <img
+                            src="images/profile.png"
+                            alt="Profile portrait of TJ Kenneth"
+                            class="h-28 w-28 shrink-0 object-contain"
+                        >
+                        <h3 class="font-['Space_Mono'] text-2xl font-bold leading-tight text-white sm:text-3xl">
+                            Hi, I'm TJ Kenneth
+                        </h3>
+                    </div>
+                    <p class="mt-6 text-base leading-8 text-gray-300">
+                        I am an Information Technology student with a growing background in web development, graphic design, data entry, and basic system and database development. I enjoy creating clean, functional, and user-friendly digital solutions.
+                    </p>
+                </div>
+                <div class="space-y-5 text-sm leading-7 text-gray-300">
+                    <p>
+                        Through academic and personal projects, I have developed websites, management systems, database-driven applications, and other IT projects. I combine technical skills with creativity and attention to detail to turn ideas into practical solutions.
+                    </p>
+                    <p>
+                        I am continuously learning new technologies and improving my skills, with the goal of building useful digital experiences and contributing to opportunities where I can learn and grow.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- EXPERIENCE -->
+    <section
+            id="experience"
+            class="min-h-screen px-6 py-24 flex items-center justify-center"
+>
+            <div class="w-full max-w-6xl">
+
+                <div class="flex items-center gap-6">
+
+                    <!-- Left line -->
+                    <span class="h-px flex-1 bg-white/10"></span>
+
+                    <!-- Text -->
+                    <h2
+                    class="shrink-0 font-['Space_Mono'] text-sm
+                    font-bold tracking-[0.3em] text-gray-300"
+                    >
+                         EXPERIENCE
+                    </h2>
+
+            <!-- Right line -->
+                    <span class="h-px flex-1 bg-white/10"></span>
+
+                    </div>
+
+                <div class="mt-10 grid gap-6 md:grid-cols-3">
+                    <article class="rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+                        <div class="mb-5 flex items-center justify-between gap-3 text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                            <span>2024 — 2025</span>
+                            <span class="rounded-full border border-white/10 px-2 py-1">Remote</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Data Entry & Admin Support</h3>
+                        <p class="mt-2 text-sm text-gray-400">Online freelance / personal client work</p>
+                        <ul class="mt-6 space-y-3 text-sm text-gray-300">
+                            <li>• Entered and organized data accurately for client records and forms.</li>
+                            <li>• Maintained spreadsheets for tracking information and updates.</li>
+                            <li>• Improved workflow by keeping files neat, labeled, and easy to access.</li>
+                        </ul>
+                        <p class="mt-5 text-[10px] uppercase tracking-[0.2em] text-gray-400">Tools: Excel, Google Sheets</p>
+                    </article>
+
+                    <article class="rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+                        <div class="mb-5 flex items-center justify-between gap-3 text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                            <span>2023 — 2025</span>
+                            <span class="rounded-full border border-white/10 px-2 py-1">Freelance</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Graphic Design & Digital Content</h3>
+                        <p class="mt-2 text-sm text-gray-400">Independent / online projects</p>
+                        <ul class="mt-6 space-y-3 text-sm text-gray-300">
+                            <li>• Created simple flyers, social media posts, and promotional graphics.</li>
+                            <li>• Designed clean layouts that matched client branding and content goals.</li>
+                            <li>• Worked with color, typography, and layout to produce polished visuals.</li>
+                        </ul>
+                        <p class="mt-5 text-[10px] uppercase tracking-[0.2em] text-gray-400">Tools: Canva, Adobe Photoshop</p>
+                    </article>
+
+                    <article class="rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+                        <div class="mb-5 flex items-center justify-between gap-3 text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                            <span>2022 — 2025</span>
+                            <span class="rounded-full border border-white/10 px-2 py-1">Academic</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">IT Student Projects</h3>
+                        <p class="mt-2 text-sm text-gray-400">School / academic assignments</p>
+                        <ul class="mt-6 space-y-3 text-sm text-gray-300">
+                            <li>• Built small web pages and basic applications as part of coursework.</li>
+                            <li>• Used HTML, CSS, and JavaScript to create functional user interfaces.</li>
+                            <li>• Organized and managed project data using databases and spreadsheet tools.</li>
+                        </ul>
+                        <p class="mt-5 text-[10px] uppercase tracking-[0.2em] text-gray-400">Tools: HTML, CSS, JavaScript, MySQL</p>
+                    </article>
+                </div>
+
+            </div>
+    </section>
+
+
+    <!-- PROJECTS -->
+    <section
+        id="projects"
+        class="min-h-screen px-6 py-24"
+    >
+        <div class="mx-auto max-w-6xl">
+            <div class="flex items-center gap-6">
+                <span class="h-px flex-1 bg-white/10"></span>
+                <h2 class="shrink-0 font-['Space_Mono'] text-sm font-bold tracking-[0.3em] text-gray-300">
+                    PROJECTS
+                </h2>
+                <span class="h-px flex-1 bg-white/10"></span>
+            </div>
+
+            <p class="mt-4 text-center text-xs leading-5 text-gray-400">
+                Fictional sample project information and screenshot placeholders. Replace them with your own work.
+            </p>
+
+            <div class="mt-16 grid gap-6 md:grid-cols-3">
+                <article class="rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+                    <div class="project-preview">
+                        <div class="project-preview-fallback" aria-hidden="true">
+                            <span class="project-preview-label">Screenshot placeholder: images/project1.jpg</span>
+                        </div>
+                        <img class="project-screenshot" src="images/project1.jpg" alt="Fictional personal portfolio website screenshot placeholder">
+                    </div>
+                    <div class="mb-5 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                        <span>2025</span>
+                        <span>Web Development</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Personal Portfolio Website</h3>
+                    <p class="mt-3 text-sm leading-6 text-gray-300">
+                        Fictional responsive portfolio concept for presenting a student's skills, project samples, education, and experience.
+                    </p>
+                    <details class="project-details">
+                        <summary>View Details</summary>
+                        <div class="project-carousel" data-project-carousel role="region" aria-label="Personal Portfolio Website screenshots">
+                            <div class="project-carousel-viewport" tabindex="0">
+                                <div class="project-carousel-track">
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="false">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/portfolio-1.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/portfolio-1.jpg" alt="Portfolio website screenshot 1 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/portfolio-2.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/portfolio-2.jpg" alt="Portfolio website screenshot 2 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/portfolio-3.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/portfolio-3.jpg" alt="Portfolio website screenshot 3 of 3" loading="lazy">
+                                    </div>
+                                </div>
+                                <button class="project-carousel-button project-carousel-previous" type="button" aria-label="Previous image">&#8592;</button>
+                                <button class="project-carousel-button project-carousel-next" type="button" aria-label="Next image">&#8594;</button>
+                            </div>
+                            <div class="project-carousel-indicators" role="group" aria-label="Choose a portfolio screenshot">
+                                <button class="is-active" type="button" aria-label="Show image 1" aria-pressed="true"></button>
+                                <button type="button" aria-label="Show image 2" aria-pressed="false"></button>
+                                <button type="button" aria-label="Show image 3" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="project-detail-list">
+                            <p><span class="project-detail-label">Description</span>Fictional responsive portfolio concept for presenting a student's skills, project samples, education, and experience.</p>
+                            <p><span class="project-detail-label">Category</span>Web Development</p>
+                            <p><span class="project-detail-label">Role</span>Front-End Developer (sample role)</p>
+                            <p><span class="project-detail-label">Technologies</span>HTML, CSS, JavaScript, Tailwind CSS</p>
+                            <p><span class="project-detail-label">Main features</span>Responsive sections, theme toggle, animated navigation, project showcase, contact form</p>
+                            <p><span class="project-detail-label">Purpose</span>A fictional practice concept for presenting skills and exploring front-end interface design.</p>
+                        </div>
+                        <button class="project-collapse" type="button">Collapse details</button>
+                    </details>
+                </article>
+
+                <article class="rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+                    <div class="project-preview">
+                        <div class="project-preview-fallback" aria-hidden="true">
+                            <span class="project-preview-label">Screenshot: images/UNICO-1.png</span>
+                        </div>
+                        <img class="project-screenshot" src="images/UNICO-1.png" alt="Unico Cafe homepage screenshot">
+                    </div>
+                    <div class="mb-5 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                        <span>2024</span>
+                        <span>Web Development</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Unico Cafe Website</h3>
+                    <p class="mt-3 text-sm leading-6 text-gray-300">
+                        Fictional cafe website concept featuring a sample cafe story, menu, services, and contact information.
+                    </p>
+                    <details class="project-details">
+                        <summary>View Details</summary>
+                        <div class="project-carousel" data-project-carousel role="region" aria-label="Unico Cafe Website screenshots">
+                            <div class="project-carousel-viewport" tabindex="0">
+                                <div class="project-carousel-track">
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="false">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/UNICO-1.png</span></div>
+                                        <img class="project-carousel-image" src="images/UNICO-1.png" alt="Unico Cafe homepage screenshot 1 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/UNICO-2.png</span></div>
+                                        <img class="project-carousel-image" src="images/UNICO-2.png" alt="Unico Cafe story page screenshot 2 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/UNICO-3.png</span></div>
+                                        <img class="project-carousel-image" src="images/UNICO-3.png" alt="Unico Cafe menu page screenshot 3 of 3" loading="lazy">
+                                    </div>
+                                </div>
+                                <button class="project-carousel-button project-carousel-previous" type="button" aria-label="Previous image">&#8592;</button>
+                                <button class="project-carousel-button project-carousel-next" type="button" aria-label="Next image">&#8594;</button>
+                            </div>
+                            <div class="project-carousel-indicators" role="group" aria-label="Choose a cafe screenshot">
+                                <button class="is-active" type="button" aria-label="Show image 1" aria-pressed="true"></button>
+                                <button type="button" aria-label="Show image 2" aria-pressed="false"></button>
+                                <button type="button" aria-label="Show image 3" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="project-detail-list">
+                            <p><span class="project-detail-label">Description</span>Fictional cafe website concept featuring a sample cafe story, menu, services, and contact information.</p>
+                            <p><span class="project-detail-label">Category</span>Web Development</p>
+                            <p><span class="project-detail-label">Role</span>UI Designer / Web Developer (sample role)</p>
+                            <p><span class="project-detail-label">Technologies</span>HTML, CSS, JavaScript, Bootstrap</p>
+                            <p><span class="project-detail-label">Main features</span>Responsive navigation, sample menu, featured-item carousel, contact section, mobile layout</p>
+                            <p><span class="project-detail-label">Purpose</span>A fictional exercise in presenting a small cafe online with a clear, mobile-friendly browsing flow.</p>
+                        </div>
+                        <button class="project-collapse" type="button">Collapse details</button>
+                    </details>
+                </article>
+
+                <article class="rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+                    <div class="project-preview">
+                        <div class="project-preview-fallback" aria-hidden="true">
+                            <span class="project-preview-label">Screenshot placeholder: images/project3.jpg</span>
+                        </div>
+                        <img class="project-screenshot" src="images/project3.jpg" alt="Fictional Java inventory system screenshot placeholder">
+                    </div>
+                    <div class="mb-5 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                        <span>2024</span>
+                        <span>Java Application</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Java Inventory / Management System</h3>
+                    <p class="mt-3 text-sm leading-6 text-gray-300">
+                        Fictional desktop inventory concept for maintaining product records and reviewing stock changes.
+                    </p>
+                    <details class="project-details">
+                        <summary>View Details</summary>
+                        <div class="project-carousel" data-project-carousel role="region" aria-label="Java Inventory Management System screenshots">
+                            <div class="project-carousel-viewport" tabindex="0">
+                                <div class="project-carousel-track">
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="false">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/inventory-1.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/inventory-1.jpg" alt="Inventory system screenshot 1 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/inventory-2.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/inventory-2.jpg" alt="Inventory system screenshot 2 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/inventory-3.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/inventory-3.jpg" alt="Inventory system screenshot 3 of 3" loading="lazy">
+                                    </div>
+                                </div>
+                                <button class="project-carousel-button project-carousel-previous" type="button" aria-label="Previous image">&#8592;</button>
+                                <button class="project-carousel-button project-carousel-next" type="button" aria-label="Next image">&#8594;</button>
+                            </div>
+                            <div class="project-carousel-indicators" role="group" aria-label="Choose an inventory screenshot">
+                                <button class="is-active" type="button" aria-label="Show image 1" aria-pressed="true"></button>
+                                <button type="button" aria-label="Show image 2" aria-pressed="false"></button>
+                                <button type="button" aria-label="Show image 3" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="project-detail-list">
+                            <p><span class="project-detail-label">Description</span>Fictional desktop inventory concept for maintaining product records and reviewing stock changes.</p>
+                            <p><span class="project-detail-label">Category</span>Java Application</p>
+                            <p><span class="project-detail-label">Role</span>Programmer / System Designer (sample role)</p>
+                            <p><span class="project-detail-label">Technologies</span>Java, MySQL, NetBeans</p>
+                            <p><span class="project-detail-label">Main features</span>Product records, inventory search, add/edit/delete actions, stock status, basic reports</p>
+                            <p><span class="project-detail-label">Purpose</span>A fictional demonstration of Java application structure and database record management.</p>
+                        </div>
+                        <button class="project-collapse" type="button">Collapse details</button>
+                    </details>
+                </article>
+
+                <article class="rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+                    <div class="project-preview">
+                        <div class="project-preview-fallback" aria-hidden="true">
+                            <span class="project-preview-label">Screenshot placeholder: images/project4.jpg</span>
+                        </div>
+                        <img class="project-screenshot" src="images/project4.jpg" alt="Fictional database management system screenshot placeholder">
+                    </div>
+                    <div class="mb-5 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                        <span>2024</span>
+                        <span>Database Application</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Database-Driven System</h3>
+                    <p class="mt-3 text-sm leading-6 text-gray-300">
+                        Fictional record-management concept for organizing sample organization data in a searchable application.
+                    </p>
+                    <details class="project-details">
+                        <summary>View Details</summary>
+                        <div class="project-carousel" data-project-carousel role="region" aria-label="Database-Driven System screenshots">
+                            <div class="project-carousel-viewport" tabindex="0">
+                                <div class="project-carousel-track">
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="false">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/database-1.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/database-1.jpg" alt="Database system screenshot 1 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/database-2.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/database-2.jpg" alt="Database system screenshot 2 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/database-3.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/database-3.jpg" alt="Database system screenshot 3 of 3" loading="lazy">
+                                    </div>
+                                </div>
+                                <button class="project-carousel-button project-carousel-previous" type="button" aria-label="Previous image">&#8592;</button>
+                                <button class="project-carousel-button project-carousel-next" type="button" aria-label="Next image">&#8594;</button>
+                            </div>
+                            <div class="project-carousel-indicators" role="group" aria-label="Choose a database screenshot">
+                                <button class="is-active" type="button" aria-label="Show image 1" aria-pressed="true"></button>
+                                <button type="button" aria-label="Show image 2" aria-pressed="false"></button>
+                                <button type="button" aria-label="Show image 3" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="project-detail-list">
+                            <p><span class="project-detail-label">Description</span>Fictional record-management concept for organizing sample organization data in a searchable application.</p>
+                            <p><span class="project-detail-label">Category</span>Database Application</p>
+                            <p><span class="project-detail-label">Role</span>Database / Application Developer (sample role)</p>
+                            <p><span class="project-detail-label">Technologies</span>MySQL, SQL, PHP or Java</p>
+                            <p><span class="project-detail-label">Main features</span>Validated data entry, linked records, search filters, update/delete actions, summary reports</p>
+                            <p><span class="project-detail-label">Purpose</span>A fictional example for practicing relational data modeling and everyday record workflows.</p>
+                        </div>
+                        <button class="project-collapse" type="button">Collapse details</button>
+                    </details>
+                </article>
+
+                <article class="rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+                    <div class="project-preview">
+                        <div class="project-preview-fallback" aria-hidden="true">
+                            <span class="project-preview-label">Screenshot placeholder: images/project5.jpg</span>
+                        </div>
+                        <img class="project-screenshot" src="images/project5.jpg" alt="Fictional queue management system screenshot placeholder">
+                    </div>
+                    <div class="mb-5 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                        <span>2023</span>
+                        <span>Information System</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Queue / Service Management System</h3>
+                    <p class="mt-3 text-sm leading-6 text-gray-300">
+                        Fictional service-desk concept for recording sample requests and tracking their progress through a queue.
+                    </p>
+                    <details class="project-details">
+                        <summary>View Details</summary>
+                        <div class="project-carousel" data-project-carousel role="region" aria-label="Queue Management System screenshots">
+                            <div class="project-carousel-viewport" tabindex="0">
+                                <div class="project-carousel-track">
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="false">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/queue-1.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/queue-1.jpg" alt="Queue system screenshot 1 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/queue-2.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/queue-2.jpg" alt="Queue system screenshot 2 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/queue-3.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/queue-3.jpg" alt="Queue system screenshot 3 of 3" loading="lazy">
+                                    </div>
+                                </div>
+                                <button class="project-carousel-button project-carousel-previous" type="button" aria-label="Previous image">&#8592;</button>
+                                <button class="project-carousel-button project-carousel-next" type="button" aria-label="Next image">&#8594;</button>
+                            </div>
+                            <div class="project-carousel-indicators" role="group" aria-label="Choose a queue system screenshot">
+                                <button class="is-active" type="button" aria-label="Show image 1" aria-pressed="true"></button>
+                                <button type="button" aria-label="Show image 2" aria-pressed="false"></button>
+                                <button type="button" aria-label="Show image 3" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="project-detail-list">
+                            <p><span class="project-detail-label">Description</span>Fictional service-desk concept for recording sample requests and tracking their progress through a queue.</p>
+                            <p><span class="project-detail-label">Category</span>Information System</p>
+                            <p><span class="project-detail-label">Role</span>System Analyst / Developer (sample role)</p>
+                            <p><span class="project-detail-label">Technologies</span>HTML, CSS, JavaScript, MySQL</p>
+                            <p><span class="project-detail-label">Main features</span>Request intake, queue status, service records, progress updates, daily summary</p>
+                            <p><span class="project-detail-label">Purpose</span>A fictional workflow exercise showing how a simple system could organize service requests.</p>
+                        </div>
+                        <button class="project-collapse" type="button">Collapse details</button>
+                    </details>
+                </article>
+
+                <article class="rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+                    <div class="project-preview">
+                        <div class="project-preview-fallback" aria-hidden="true">
+                            <span class="project-preview-label">Screenshot placeholder: images/project6.jpg</span>
+                        </div>
+                        <img class="project-screenshot" src="images/project6.jpg" alt="Fictional IoT monitoring project screenshot placeholder">
+                    </div>
+                    <div class="mb-5 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                        <span>2023</span>
+                        <span>IoT Prototype</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">IoT-Based Monitoring Project</h3>
+                    <p class="mt-3 text-sm leading-6 text-gray-300">
+                        Fictional IoT dashboard concept that visualizes sample temperature and humidity readings from a sensor.
+                    </p>
+                    <details class="project-details">
+                        <summary>View Details</summary>
+                        <div class="project-carousel" data-project-carousel role="region" aria-label="IoT Monitoring Project screenshots">
+                            <div class="project-carousel-viewport" tabindex="0">
+                                <div class="project-carousel-track">
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="false">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/iot-1.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/iot-1.jpg" alt="IoT monitoring screenshot 1 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/iot-2.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/iot-2.jpg" alt="IoT monitoring screenshot 2 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/iot-3.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/iot-3.jpg" alt="IoT monitoring screenshot 3 of 3" loading="lazy">
+                                    </div>
+                                </div>
+                                <button class="project-carousel-button project-carousel-previous" type="button" aria-label="Previous image">&#8592;</button>
+                                <button class="project-carousel-button project-carousel-next" type="button" aria-label="Next image">&#8594;</button>
+                            </div>
+                            <div class="project-carousel-indicators" role="group" aria-label="Choose an IoT screenshot">
+                                <button class="is-active" type="button" aria-label="Show image 1" aria-pressed="true"></button>
+                                <button type="button" aria-label="Show image 2" aria-pressed="false"></button>
+                                <button type="button" aria-label="Show image 3" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="project-detail-list">
+                            <p><span class="project-detail-label">Description</span>Fictional IoT dashboard concept that visualizes sample temperature and humidity readings from a sensor.</p>
+                            <p><span class="project-detail-label">Category</span>IoT Prototype</p>
+                            <p><span class="project-detail-label">Role</span>Hardware / Software Contributor (sample role)</p>
+                            <p><span class="project-detail-label">Technologies</span>Arduino, C++, sample environmental sensor, dashboard UI</p>
+                            <p><span class="project-detail-label">Main features</span>Sample sensor readings, threshold status, periodic log display, basic alert concept</p>
+                            <p><span class="project-detail-label">Purpose</span>A fictional prototype brief for exploring the flow from sensor readings to a user-facing display.</p>
+                        </div>
+                        <button class="project-collapse" type="button">Collapse details</button>
+                    </details>
+                </article>
+
+                <article class="rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+                    <div class="project-preview">
+                        <div class="project-preview-fallback" aria-hidden="true">
+                            <span class="project-preview-label">Screenshot placeholder: images/project7.jpg</span>
+                        </div>
+                        <img class="project-screenshot" src="images/project7.jpg" alt="Fictional branding project screenshot placeholder">
+                    </div>
+                    <div class="mb-5 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                        <span>2023</span>
+                        <span>Graphic Design</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Branding & Social Media Design</h3>
+                    <p class="mt-3 text-sm leading-6 text-gray-300">
+                        Fictional visual identity concept for a sample neighborhood cafe, shown across print and social media formats.
+                    </p>
+                    <details class="project-details">
+                        <summary>View Details</summary>
+                        <div class="project-carousel" data-project-carousel role="region" aria-label="Branding and Social Media Design screenshots">
+                            <div class="project-carousel-viewport" tabindex="0">
+                                <div class="project-carousel-track">
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="false">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/branding-1.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/branding-1.jpg" alt="Branding project screenshot 1 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/branding-2.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/branding-2.jpg" alt="Branding project screenshot 2 of 3" loading="lazy">
+                                    </div>
+                                    <div class="project-carousel-slide is-placeholder" aria-hidden="true">
+                                        <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/projects/branding-3.jpg</span></div>
+                                        <img class="project-carousel-image" src="images/projects/branding-3.jpg" alt="Branding project screenshot 3 of 3" loading="lazy">
+                                    </div>
+                                </div>
+                                <button class="project-carousel-button project-carousel-previous" type="button" aria-label="Previous image">&#8592;</button>
+                                <button class="project-carousel-button project-carousel-next" type="button" aria-label="Next image">&#8594;</button>
+                            </div>
+                            <div class="project-carousel-indicators" role="group" aria-label="Choose a branding screenshot">
+                                <button class="is-active" type="button" aria-label="Show image 1" aria-pressed="true"></button>
+                                <button type="button" aria-label="Show image 2" aria-pressed="false"></button>
+                                <button type="button" aria-label="Show image 3" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="project-detail-list">
+                            <p><span class="project-detail-label">Description</span>Fictional visual identity concept for a sample neighborhood cafe, shown across print and social media formats.</p>
+                            <p><span class="project-detail-label">Category</span>Graphic Design</p>
+                            <p><span class="project-detail-label">Role</span>Graphic Designer (sample role)</p>
+                            <p><span class="project-detail-label">Tools</span>Canva, Adobe Photoshop</p>
+                            <p><span class="project-detail-label">Main features</span>Sample logo direction, color palette, typography, promotional poster, social post templates</p>
+                            <p><span class="project-detail-label">Purpose</span>A fictional branding exercise for practicing a consistent visual identity across digital and print materials.</p>
+                        </div>
+                        <button class="project-collapse" type="button">Collapse details</button>
+                    </details>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- EDUCATION -->
+    <section
+        id="education"
+        class="min-h-screen px-6 py-24"
+    >
+        <div class="mx-auto max-w-6xl">
+            <div class="flex items-center gap-6">
+                <span class="h-px flex-1 bg-white/10"></span>
+                <h2 class="shrink-0 font-['Space_Mono'] text-sm font-bold tracking-[0.3em] text-gray-300">
+                    EDUCATION
+                </h2>
+                <span class="h-px flex-1 bg-white/10"></span>
+            </div>
+
+            <div class="mt-16 flex flex-col gap-6">
+                <article class="flex items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                    <div class="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-[#0D0D0D] p-3">
+                        <img src="images/CBSUA LOGO.png" alt="CBSUA logo" class="h-full w-full object-contain" />
+                    </div>
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.25em] text-gray-400">Bachelor's degree</p>
+                        <h3 class="mt-3 text-xl font-semibold text-white">Information Technology</h3>
+                        <p class="mt-2 text-sm text-gray-400">Central Bicol State University of Agriculture - Sipocot Campus</p>
+                    </div>
+                </article>
+
+                <article class="flex items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                    <div class="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-[#0D0D0D] p-3">
+                        <img src="images/BCA LOGO.png" alt="Bicol Central Academy logo" class="h-full w-full object-contain" />
+                    </div>
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.25em] text-gray-400">Senior High School</p>
+                        <h3 class="mt-3 text-xl font-semibold text-white">Science, Technology, Engineering, and Mathematics</h3>
+                        <p class="mt-2 text-sm text-gray-400">Bicol Central Academy</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CONTACT -->
+    <section
+        id="contact"
+        class="min-h-screen px-6 py-18"
+    >
+        <div class="mx-auto max-w-5xl rounded-3xl border border-white/10 bg-white/[0.02] p-8 md:p-12">
+            <div class="flex items-center gap-6">
+                <span class="h-px flex-1 bg-white/10"></span>
+                <h2 class="shrink-0 font-['Space_Mono'] text-sm font-bold tracking-[0.3em] text-gray-300">
+                    CONTACT
+                </h2>
+                <span class="h-px flex-1 bg-white/10"></span>
+            </div>
+
+            <div class="mt-10 grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-start">
+                <div>
+                    <p class="text-sm uppercase tracking-[0.3em] text-gray-400">Let’s build something</p>
+                    <h3 class="mt-5 font-['Space_Mono'] text-2xl font-bold uppercase text-white md:text-3xl">
+                        Have a project in mind?
+                    </h3>
+                    <p class="mt-5 text-sm leading-7 text-gray-300">
+                        Send me a message about freelance work, collaborations, or a project you’d like to discuss.
+                    </p>
+                    <a
+                        href="mailto:tjkennethbobadilla@gmail.com"
+                        class="mt-6 inline-block text-sm text-gray-300 underline decoration-white/30 underline-offset-4 transition hover:text-white"
+                    >
+                        tjkennethbobadilla@gmail.com
+                    </a>
+                </div>
+
+                <form
+                    class="contact-form"
+                    action="https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec"
+                    method="POST"
+                >
+                    <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                    <div>
+                        <label class="contact-label" for="contact-name">Full name</label>
+                        <input
+                            class="contact-field"
+                            id="contact-name"
+                            type="text"
+                            name="name"
+                            autocomplete="name"
+                            placeholder="Your name"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label class="contact-label" for="contact-email">Email</label>
+                        <input
+                            class="contact-field"
+                            id="contact-email"
+                            type="email"
+                            name="email"
+                            autocomplete="email"
+                            placeholder="you@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label class="contact-label" for="contact-message">Message</label>
+                        <textarea
+                            class="contact-field contact-message"
+                            id="contact-message"
+                            name="message"
+                            rows="5"
+                            placeholder="Tell me a little about what you have in mind..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button class="contact-submit" type="submit">Send message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/10 bg-[#0D0D0D] px-6 py-3">
+        <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 text-center text-[10px] uppercase tracking-[0.2em] text-gray-400 sm:flex-row sm:text-left">
+            <p>© 2026 TJ Kenneth A. Bobadilla</p>
+            <a
+                href="https://github.com/kennjt"
+                target="_blank"
+                rel="noreferrer"
+                class="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] transition hover:border-white hover:text-white"
+                aria-label="GitHub"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="h-3.5 w-3.5 fill-current text-white">
+                    <path d="M12 .5C5.648.5.5 5.648.5 12c0 5.086 3.292 9.396 7.864 10.91.576.106.788-.25.788-.555 0-.274-.01-1.186-.015-2.15-3.204.698-3.879-1.54-3.879-1.54-.524-1.333-1.278-1.687-1.278-1.687-1.045-.714.08-.699.08-.699 1.154.082 1.763 1.186 1.763 1.186 1.027 1.762 2.695 1.253 3.352.958.104-.745.402-1.253.731-1.539-2.558-.291-5.25-1.279-5.25-5.689 0-1.256.449-2.282 1.183-3.084-.119-.29-.513-1.464.112-3.049 0 0 .965-.31 3.166 1.177a10.89 10.89 0 0 1 5.767 0c2.2-1.487 3.165-1.177 3.165-1.177.625 1.585.231 2.759.112 3.049.735.802 1.182 1.828 1.182 3.084 0 4.418-2.696 5.395-5.264 5.683.414.356.783 1.06.783 2.136 0 1.542-.014 2.783-.014 3.164 0 .308.208.666.794.553A11.503 11.503 0 0 0 23.5 12C23.5 5.648 18.352.5 12 .5Z"/>
+                </svg>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        const navigationLinks = [...document.querySelectorAll('nav a[href^="#"]')];
+        const pageSections = navigationLinks
+            .map((link) => document.querySelector(link.getAttribute("href")))
+            .filter(Boolean);
+        const revealItems = [...document.querySelectorAll(
+            "section:not(#home) h2, section:not(#home) article, #about > div, #contact > div, footer"
+        )];
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        function setActiveLink(sectionId) {
+            navigationLinks.forEach((link) => {
+                if (link.hash === `#${sectionId}`) {
+                    link.setAttribute("aria-current", "location");
+                } else {
+                    link.removeAttribute("aria-current");
+                }
+            });
+        }
+
+        setActiveLink(location.hash.slice(1) || "home");
+        navigationLinks.forEach((link) => {
+            link.addEventListener("click", () => setActiveLink(link.hash.slice(1)));
+        });
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            const visibleSections = entries
+                .filter((entry) => entry.isIntersecting)
+                .sort((first, second) => first.boundingClientRect.top - second.boundingClientRect.top);
+
+            if (visibleSections.length) {
+                setActiveLink(visibleSections[0].target.id);
+            }
+        }, {
+            rootMargin: "-25% 0px -65% 0px",
+            threshold: 0
+        });
+
+        pageSections.forEach((section) => sectionObserver.observe(section));
+
+        if (!prefersReducedMotion.matches) {
+            const previousTops = new WeakMap();
+
+            revealItems.forEach((item) => item.classList.add("reveal-item"));
+
+            document.querySelectorAll("section:not(#home)").forEach((section) => {
+                const sectionItems = [...section.querySelectorAll("h2, article")];
+                sectionItems.forEach((item, index) => {
+                    item.style.transitionDelay = `${Math.min(index, 4) * 100}ms`;
+                });
+            });
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    const previousTop = previousTops.get(entry.target);
+
+                    if (entry.isIntersecting) {
+                        if (previousTop !== undefined) {
+                            const movingDown = entry.boundingClientRect.top < previousTop;
+                            entry.target.style.setProperty(
+                                "--reveal-offset",
+                                movingDown ? "20px" : "-20px"
+                            );
+                        }
+                        entry.target.classList.add("is-visible");
+                    } else {
+                        entry.target.classList.remove("is-visible");
+                    }
+
+                    previousTops.set(entry.target, entry.boundingClientRect.top);
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            revealItems.forEach((item) => revealObserver.observe(item));
+        }
+
+        document.querySelectorAll(".project-screenshot, .project-carousel-image").forEach((image) => {
+            const preview = image.closest(".project-preview, .project-carousel-slide");
+            const showPlaceholder = () => preview.classList.add("is-placeholder");
+
+            image.addEventListener("error", showPlaceholder);
+            image.addEventListener("load", () => preview.classList.remove("is-placeholder"));
+
+            if (image.complete) {
+                if (image.naturalWidth === 0) {
+                    showPlaceholder();
+                } else {
+                    preview.classList.remove("is-placeholder");
+                }
+            }
+        });
+
+        const projectCards = [...document.querySelectorAll("#projects article")];
+        const projectDialog = document.createElement("dialog");
+        const projectModalBackdrop = document.createElement("div");
+        const projectCardPlaceholders = new WeakMap();
+        let activeProjectCard = null;
+        let isClosingProjectCard = false;
+
+        projectDialog.className = "project-preview-dialog";
+        projectDialog.setAttribute("aria-label", "Project preview");
+        projectModalBackdrop.className = "project-modal-backdrop";
+        projectDialog.append(projectModalBackdrop);
+        document.body.append(projectDialog);
+
+        function openProjectCard(card) {
+            if (activeProjectCard || isClosingProjectCard) {
+                return;
+            }
+
+            const projectDetails = card.querySelector(".project-details");
+            const originalBounds = card.getBoundingClientRect();
+            const placeholder = document.createElement("div");
+            placeholder.className = "project-card-placeholder";
+            placeholder.setAttribute("aria-hidden", "true");
+            placeholder.style.width = `${originalBounds.width}px`;
+            placeholder.style.height = `${originalBounds.height}px`;
+
+            card.replaceWith(placeholder);
+            projectCardPlaceholders.set(card, placeholder);
+            activeProjectCard = card;
+
+            projectDetails.classList.add("project-overlay-instant");
+            projectDetails.open = true;
+            card.querySelectorAll(".project-carousel-image").forEach((image) => {
+                image.loading = "eager";
+            });
+            card.classList.add("project-card-overlay");
+            projectDialog.append(card);
+            projectDialog.showModal();
+            projectDetails.classList.remove("project-overlay-instant");
+
+            const overlayBounds = card.getBoundingClientRect();
+            const scaleX = originalBounds.width / overlayBounds.width;
+            const scaleY = originalBounds.height / overlayBounds.height;
+            const translateX = originalBounds.left - overlayBounds.left;
+            const translateY = originalBounds.top - overlayBounds.top;
+
+            requestAnimationFrame(() => projectModalBackdrop.classList.add("is-visible"));
+
+            if (!prefersReducedMotion.matches) {
+                card.animate([
+                    {
+                        transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`,
+                        transformOrigin: "top left",
+                        opacity: 0.88
+                    },
+                    {
+                        transform: "translate(0, 0) scale(1, 1)",
+                        transformOrigin: "top left",
+                        opacity: 1
+                    }
+                ], {
+                    duration: 380,
+                    easing: "cubic-bezier(0.2, 0.7, 0.2, 1)"
+                });
+            }
+        }
+
+        function closeProjectCard() {
+            if (!activeProjectCard || isClosingProjectCard) {
+                return;
+            }
+
+            isClosingProjectCard = true;
+            const card = activeProjectCard;
+            const projectDetails = card.querySelector(".project-details");
+            const placeholder = projectCardPlaceholders.get(card);
+            const currentBounds = card.getBoundingClientRect();
+            const returnBounds = placeholder.getBoundingClientRect();
+            const scaleX = returnBounds.width / currentBounds.width;
+            const scaleY = returnBounds.height / currentBounds.height;
+            const translateX = returnBounds.left - currentBounds.left;
+            const translateY = returnBounds.top - currentBounds.top;
+            const animations = [];
+
+            card.getAnimations().forEach((animation) => animation.cancel());
+            projectModalBackdrop.getAnimations().forEach((animation) => animation.cancel());
+
+            if (!prefersReducedMotion.matches) {
+                animations.push(card.animate([
+                    {
+                        transform: "translate(0, 0) scale(1, 1)",
+                        transformOrigin: "top left",
+                        opacity: 1
+                    },
+                    {
+                        transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`,
+                        transformOrigin: "top left",
+                        opacity: 0.88
+                    }
+                ], {
+                    duration: 320,
+                    easing: "cubic-bezier(0.2, 0.7, 0.2, 1)"
+                }));
+
+                projectModalBackdrop.classList.remove("is-visible");
+                animations.push(projectModalBackdrop.animate([
+                    { opacity: 1 },
+                    { opacity: 0 }
+                ], {
+                    duration: 240,
+                    easing: "ease-in"
+                }));
+            }
+
+            Promise.all(animations.map((animation) => animation.finished.catch(() => {})))
+                .then(() => {
+                    projectDetails.classList.add("project-overlay-instant");
+                    projectDetails.open = false;
+                    projectDialog.close();
+                    placeholder.replaceWith(card);
+                    card.classList.remove("project-card-overlay");
+                    projectDetails.classList.remove("project-overlay-instant");
+                    projectModalBackdrop.classList.remove("is-visible");
+                    activeProjectCard = null;
+                    isClosingProjectCard = false;
+                    projectDetails.querySelector("summary").focus({ preventScroll: true });
+                });
+        }
+
+        projectCards.forEach((card) => {
+            const projectDetails = card.querySelector(".project-details");
+            const summary = projectDetails.querySelector("summary");
+            const collapseButton = projectDetails.querySelector(".project-collapse");
+
+            card.addEventListener("click", (event) => {
+                if (!(event.target instanceof Element)) {
+                    return;
+                }
+
+                if (event.target.closest("button, summary, a, input, select, textarea, [data-project-carousel]")) {
+                    return;
+                }
+
+                if (activeProjectCard === card) {
+                    closeProjectCard();
+                } else if (!activeProjectCard) {
+                    openProjectCard(card);
+                }
+            });
+
+            summary.addEventListener("click", (event) => {
+                event.preventDefault();
+
+                if (activeProjectCard === card) {
+                    closeProjectCard();
+                } else if (!activeProjectCard) {
+                    openProjectCard(card);
+                }
+            });
+
+            collapseButton.addEventListener("click", closeProjectCard);
+        });
+
+        projectModalBackdrop.addEventListener("click", closeProjectCard);
+        projectDialog.addEventListener("click", (event) => {
+            if (event.target === projectDialog) {
+                closeProjectCard();
+            }
+        });
+        projectDialog.addEventListener("cancel", (event) => {
+            event.preventDefault();
+            closeProjectCard();
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && activeProjectCard) {
+                event.preventDefault();
+                closeProjectCard();
+            }
+        });
+
+        document.querySelectorAll("[data-project-carousel]").forEach((carousel) => {
+            const viewport = carousel.querySelector(".project-carousel-viewport");
+            const track = carousel.querySelector(".project-carousel-track");
+            const slides = [...carousel.querySelectorAll(".project-carousel-slide")];
+            const indicators = [...carousel.querySelectorAll(".project-carousel-indicators button")];
+            let currentIndex = 0;
+
+            function showSlide(index) {
+                currentIndex = (index + slides.length) % slides.length;
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                slides.forEach((slide, slideIndex) => {
+                    slide.setAttribute("aria-hidden", String(slideIndex !== currentIndex));
+                });
+
+                indicators.forEach((indicator, indicatorIndex) => {
+                    const isActive = indicatorIndex === currentIndex;
+                    indicator.classList.toggle("is-active", isActive);
+                    indicator.setAttribute("aria-pressed", String(isActive));
+                });
+            }
+
+            carousel.querySelector(".project-carousel-previous").addEventListener("click", () => {
+                showSlide(currentIndex - 1);
+            });
+
+            carousel.querySelector(".project-carousel-next").addEventListener("click", () => {
+                showSlide(currentIndex + 1);
+            });
+
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener("click", () => showSlide(index));
+            });
+
+            viewport.addEventListener("keydown", (event) => {
+                if (event.key === "ArrowLeft") {
+                    event.preventDefault();
+                    showSlide(currentIndex - 1);
+                } else if (event.key === "ArrowRight") {
+                    event.preventDefault();
+                    showSlide(currentIndex + 1);
+                }
+            });
+
+            let touchStartX = 0;
+
+            viewport.addEventListener("touchstart", (event) => {
+                touchStartX = event.changedTouches[0].clientX;
+            }, { passive: true });
+
+            viewport.addEventListener("touchend", (event) => {
+                const touchDistance = event.changedTouches[0].clientX - touchStartX;
+
+                if (Math.abs(touchDistance) > 40) {
+                    showSlide(currentIndex + (touchDistance < 0 ? 1 : -1));
+                }
+            }, { passive: true });
+        });
+
+        const themeToggle = document.querySelector("#theme-toggle");
+        const themeOrder = ["dark", "light"];
+
+        function setTheme(theme) {
+            const currentTheme = themeOrder.includes(theme) ? theme : "dark";
+            const nextTheme = themeOrder[(themeOrder.indexOf(currentTheme) + 1) % themeOrder.length];
+            const themeIcon = themeToggle.querySelector("img");
+            const currentLabel = currentTheme[0].toUpperCase() + currentTheme.slice(1);
+            const nextLabel = nextTheme[0].toUpperCase() + nextTheme.slice(1);
+            document.documentElement.dataset.theme = currentTheme;
+            themeToggle.setAttribute(
+                "aria-label",
+                `Current theme: ${currentLabel}. Activate to switch to ${nextLabel}.`
+            );
+            themeToggle.title = `Current theme: ${currentLabel}. Activate to switch to ${nextLabel}.`;
+            themeIcon.src = currentTheme === "dark"
+                ? "images/dark_mode_24dp_E3E3E3_FILL0_wght200_GRAD200_opsz24.svg"
+                : "images/light_mode_24dp_E3E3E3_FILL0_wght200_GRAD200_opsz24.svg";
+        }
+
+        setTheme(document.documentElement.dataset.theme);
+
+        themeToggle.addEventListener("click", () => {
+            const currentIndex = themeOrder.indexOf(document.documentElement.dataset.theme);
+            const nextTheme = themeOrder[(currentIndex + 1) % themeOrder.length];
+            setTheme(nextTheme);
+
+            try {
+                localStorage.setItem("portfolio-theme", nextTheme);
+            } catch {}
+        });
+    </script>
+
+</body>
+</html>

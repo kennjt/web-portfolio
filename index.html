@@ -765,11 +765,7 @@
                     </a>
                 </div>
 
-                <form
-                    class="contact-form"
-                    action="https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec"
-                    method="POST"
-                >
+                <form class="contact-form">
                     <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
 
                     <div>
@@ -810,7 +806,10 @@
                         ></textarea>
                     </div>
 
-                    <button class="contact-submit" type="submit">Send message</button>
+                    <button class="contact-submit" type="submit">Open email app</button>
+                    <p class="text-sm text-gray-400" data-contact-status role="status" aria-live="polite" hidden>
+                        Your email app should open with your message ready. You’ll need to send it from there.
+                    </p>
                 </form>
             </div>
         </div>
@@ -842,6 +841,26 @@
             "section:not(#home) h2, section:not(#home) article, #about > div, #contact > div, footer"
         )];
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const contactForm = document.querySelector(".contact-form");
+
+        contactForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const fields = new FormData(contactForm);
+            if (fields.get("_honey")) {
+                return;
+            }
+
+            const name = String(fields.get("name") || "").trim();
+            const email = String(fields.get("email") || "").trim();
+            const message = String(fields.get("message") || "").trim();
+            const subject = `Portfolio message from ${name}`;
+            const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+            const mailtoUrl = `mailto:tjkennethbobadilla@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            contactForm.querySelector("[data-contact-status]").hidden = false;
+            window.location.href = mailtoUrl;
+        });
 
         function setActiveLink(sectionId) {
             navigationLinks.forEach((link) => {

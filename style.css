@@ -372,6 +372,66 @@ html[data-theme] .project-carousel-track {
     opacity: 0;
 }
 
+.graphic-design-collection .project-carousel-image {
+    object-fit: contain;
+}
+
+.graphic-design-gallery {
+    gap: 1rem;
+}
+
+.graphic-design-category {
+    min-width: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.65rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    transition: transform 200ms ease, border-color 200ms ease, background-color 200ms ease;
+}
+
+.graphic-design-category:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.graphic-design-category h4 {
+    margin-bottom: 0.8rem;
+    color: #F3F4F6;
+    font-family: "Space Mono", monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.graphic-design-category h4 span {
+    margin-right: 0.4rem;
+    color: #9CA3AF;
+}
+
+.graphic-design-category .project-carousel {
+    margin-bottom: 0;
+}
+
+.graphic-design-collection .project-carousel-viewport {
+    aspect-ratio: 16 / 10;
+}
+
+.graphic-design-collection .project-carousel-slide {
+    background: #111111;
+}
+
+.graphic-design-single .project-carousel-viewport {
+    cursor: default;
+}
+
+.graphic-design-caption {
+    margin-top: 0.75rem;
+    color: #D1D1D1;
+    font-size: 0.7rem;
+    line-height: 1.6;
+}
+
 .project-carousel-fallback {
     background-color: #171717;
 }
@@ -497,6 +557,29 @@ html[data-theme="light"] .project-carousel-slide,
 html[data-theme="light"] .project-carousel-fallback {
     border-color: rgba(13, 13, 13, 0.16);
     background-color: #EAEAE6;
+}
+
+html[data-theme="light"] .graphic-design-category {
+    border-color: rgba(13, 13, 13, 0.14);
+    background: rgba(13, 13, 13, 0.025);
+}
+
+html[data-theme="light"] .graphic-design-category:hover {
+    border-color: rgba(13, 13, 13, 0.24);
+    background: rgba(13, 13, 13, 0.045);
+}
+
+html[data-theme="light"] .graphic-design-category h4 {
+    color: #242424;
+}
+
+html[data-theme="light"] .graphic-design-category h4 span,
+html[data-theme="light"] .graphic-design-caption {
+    color: #555550;
+}
+
+html[data-theme="light"] .graphic-design-collection .project-carousel-slide {
+    background: #EAEAE6;
 }
 
 html[data-theme="light"] .project-carousel-button {

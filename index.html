@@ -43,9 +43,9 @@
         <nav class="fixed left-0 top-0 z-30 w-full
            bg-[#0D0D0D]/80 backdrop-blur-md">
 
-            <div class="flex justify-center px-6 py-5">
+            <div class="nav-container flex justify-center px-6 py-5">
 
-                <ul class="flex gap-8">
+                <ul id="primary-navigation" class="flex gap-8">
 
                     <li>
                         <a
@@ -101,7 +101,35 @@
                         </a>
                     </li>
 
+                    <li class="cv-nav-item">
+                        <a
+                            href="https://script.google.com/macros/s/AKfycbxLJwM-ElTS99xOURkZFUnb1QYcYuseOYd6JuzNRrjAjVsHvTDpk1xsT5gR54iUXwvnJw/exec"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Download CV"
+                            title="Download CV"
+                        >
+                            <img class="cv-nav-icon" src="letter.png" alt="" aria-hidden="true" width="24" height="24">
+                            <span class="cv-nav-label">Download CV</span>
+                        </a>
+                    </li>
+
                 </ul>
+
+                <div class="nav-actions">
+                    <button
+                        id="menu-toggle"
+                        class="menu-toggle"
+                        type="button"
+                        aria-label="Open navigation menu"
+                        aria-expanded="false"
+                        aria-controls="primary-navigation"
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
 
             </div>
 
@@ -369,10 +397,7 @@
 
                 <article class="graphic-design-collection rounded-2xl border border-white/10 bg-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
                     <div class="project-preview">
-                        <div class="project-preview-fallback" aria-hidden="true">
-                            <span class="project-preview-label">Preview: images/Logo-1.png</span>
-                        </div>
-                        <img class="project-screenshot" src="images/Logo-1.png" alt="Logo artwork preview from the Graphic Design Collection" loading="lazy">
+                        <img class="project-screenshot" src="images/Logo-3.jpg" alt="Logo artwork preview from the Graphic Design Collection" loading="lazy">
                     </div>
                     <div class="mb-5 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-gray-400">
                         <span>Selected Works</span>
@@ -404,12 +429,10 @@
                                 <div class="project-carousel graphic-design-multiple" data-project-carousel role="region" aria-label="Basketball jersey designs">
                                     <div class="project-carousel-viewport" tabindex="0">
                                         <div class="project-carousel-track">
-                                            <div class="project-carousel-slide is-placeholder" aria-hidden="false">
-                                                <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/Jersey-1.png</span></div>
+                                            <div class="project-carousel-slide" aria-hidden="false">
                                                 <img class="project-carousel-image" src="images/Jersey-1.png" alt="Basketball jersey design 1 of 2" loading="lazy">
                                             </div>
-                                            <div class="project-carousel-slide is-placeholder" aria-hidden="true">
-                                                <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/Jersey-2.png</span></div>
+                                            <div class="project-carousel-slide" aria-hidden="true">
                                                 <img class="project-carousel-image" src="images/Jersey-2.png" alt="Basketball jersey design 2 of 2" loading="lazy">
                                             </div>
                                         </div>
@@ -428,15 +451,13 @@
                                 <div class="project-carousel graphic-design-multiple" data-project-carousel role="region" aria-label="Logo designs">
                                     <div class="project-carousel-viewport" tabindex="0">
                                         <div class="project-carousel-track">
-                                            <div class="project-carousel-slide is-placeholder" aria-hidden="false">
-                                                <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/Logo-1.png</span></div>
+                                            <div class="project-carousel-slide" aria-hidden="false">
                                                 <img class="project-carousel-image" src="images/Logo-1.png" alt="Logo design 1 of 3" loading="lazy">
                                             </div>
                                             <div class="project-carousel-slide" aria-hidden="true">
                                                 <img class="project-carousel-image" src="images/Logo-2-preview.png" alt="Logo design 2 of 3" loading="lazy">
                                             </div>
-                                            <div class="project-carousel-slide is-placeholder" aria-hidden="true">
-                                                <div class="project-preview-fallback project-carousel-fallback" aria-hidden="true"><span class="project-preview-label">images/Logo-3.jpg</span></div>
+                                            <div class="project-carousel-slide" aria-hidden="true">
                                                 <img class="project-carousel-image" src="images/Logo-3.jpg" alt="Logo design 3 of 3" loading="lazy">
                                             </div>
                                         </div>
@@ -617,6 +638,8 @@
 
     <script>
         const navigationLinks = [...document.querySelectorAll('nav a[href^="#"]')];
+        const navigation = document.querySelector("nav");
+        const menuToggle = document.querySelector("#menu-toggle");
         const pageSections = navigationLinks
             .map((link) => document.querySelector(link.getAttribute("href")))
             .filter(Boolean);
@@ -643,6 +666,7 @@
 
             contactForm.querySelector("[data-contact-status]").hidden = false;
             window.location.href = mailtoUrl;
+            contactForm.reset();
         });
 
         function setActiveLink(sectionId) {
@@ -657,7 +681,30 @@
 
         setActiveLink(location.hash.slice(1) || "home");
         navigationLinks.forEach((link) => {
-            link.addEventListener("click", () => setActiveLink(link.hash.slice(1)));
+            link.addEventListener("click", () => {
+                setActiveLink(link.hash.slice(1));
+                navigation.classList.remove("is-open");
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Open navigation menu");
+            });
+        });
+
+        menuToggle.addEventListener("click", () => {
+            const isOpen = navigation.classList.toggle("is-open");
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
+            );
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && navigation.classList.contains("is-open")) {
+                navigation.classList.remove("is-open");
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Open navigation menu");
+                menuToggle.focus();
+            }
         });
 
         const sectionObserver = new IntersectionObserver((entries) => {

@@ -824,7 +824,7 @@ html[data-theme="light"] .contact-submit:hover {
         padding-top: 0.25rem;
     }
 
-    nav ul .cv-nav-item a {
+    nav ul .cv-nav-item .cv-nav-trigger {
         display: flex;
         width: auto;
         height: auto;
@@ -852,7 +852,7 @@ html[data-theme="light"] .contact-submit:hover {
         border-color: rgba(13, 13, 13, 0.14);
     }
 
-    html[data-theme="light"] nav ul .cv-nav-item a {
+    html[data-theme="light"] nav ul .cv-nav-item .cv-nav-trigger {
         background: transparent;
     }
 
@@ -1098,7 +1098,7 @@ html[data-theme] .reveal-item {
     transform: translateY(-50%);
 }
 
-.cv-nav-item a {
+.cv-nav-item .cv-nav-trigger {
     display: grid;
     width: 2.5rem;
     height: 2.5rem;
@@ -1112,6 +1112,7 @@ html[data-theme] .reveal-item {
     opacity: 1;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
     backdrop-filter: blur(8px);
+    cursor: pointer;
 }
 
 .cv-nav-icon {
@@ -1125,11 +1126,11 @@ html[data-theme] .reveal-item {
     display: none;
 }
 
-.cv-nav-item a:hover {
+.cv-nav-item .cv-nav-trigger:hover {
     transform: scale(1.06);
 }
 
-html[data-theme="light"] .cv-nav-item a {
+html[data-theme="light"] .cv-nav-item .cv-nav-trigger {
     border-color: rgba(13, 13, 13, 0.3);
     background-color: #0D0D0D;
 }

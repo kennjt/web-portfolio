@@ -1,5 +1,6 @@
 const RECIPIENT_EMAIL = "tjkennethbobadilla@gmail.com";
 const CV_FILE_ID = "1u8NXNvjnlzCwDbqMfdDnJ5y4ycqSEZCo";
+const CV_PORTFOLIO_ORIGIN = "https://kennjt.github.io";
 
 function doGet() {
     return cvPasswordPage("");
@@ -46,8 +47,9 @@ function handleCvDownload(fields) {
     const expectedPassword = properties.getProperty("CV_DOWNLOAD_PASSWORD");
     const requestId = String(fields.requestId || "");
     const isModalRequest = /^[A-Za-z0-9-]{1,80}$/.test(requestId);
+    const responseOrigin = String(fields.responseOrigin || "");
     const respondWithError = (message) => isModalRequest
-        ? cvDownloadResultPage(requestId, { ok: false, message: message })
+        ? cvDownloadResultPage(requestId, { ok: false, message: message }, responseOrigin)
         : cvPasswordPage(message);
 
     if (!expectedPassword || !/^\d{6}$/.test(expectedPassword)) {
@@ -73,7 +75,7 @@ function handleCvDownload(fields) {
                 ok: true,
                 base64: base64,
                 fileName: fileName
-            })
+            }, responseOrigin)
             : cvReadyPage(base64, fileName);
     } catch (error) {
         console.error("CV download failed: " + error);
@@ -81,7 +83,12 @@ function handleCvDownload(fields) {
     }
 }
 
-function cvDownloadResultPage(requestId, result) {
+function cvDownloadResultPage(requestId, result, responseOrigin) {
+    const targetOrigin = responseOrigin === CV_PORTFOLIO_ORIGIN
+        ? CV_PORTFOLIO_ORIGIN
+        : responseOrigin === "null"
+            ? "*"
+            : CV_PORTFOLIO_ORIGIN;
     const payload = JSON.stringify({
         type: "cv-download-result",
         requestId: requestId,
@@ -97,7 +104,7 @@ function cvDownloadResultPage(requestId, result) {
 
     return HtmlService.createHtmlOutput(
         "<!doctype html><html lang=\"en\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Resume download</title>" +
-        "<body><script>window.parent.postMessage(" + payload + ", \"*\");</script></body></html>"
+        "<body><script>window.top.postMessage(" + payload + ", " + JSON.stringify(targetOrigin) + ");</script></body></html>"
     )
         .setTitle("Resume download")
         .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);

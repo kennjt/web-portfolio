@@ -681,6 +681,7 @@
         <input type="hidden" name="action" value="download-cv">
         <input type="hidden" name="cvPassword">
         <input type="hidden" name="requestId">
+        <input type="hidden" name="responseOrigin">
     </form>
     <iframe
         class="cv-response-frame"
@@ -714,6 +715,7 @@
         const cvCancelButton = cvCodeForm.querySelector(".cv-modal-cancel");
         let cvRequestId = null;
         let cvRequestTimeout;
+        let cvResponseTimeout;
         let cvLastTrigger = null;
 
         contactForm.addEventListener("submit", (event) => {
@@ -781,9 +783,11 @@
 
         function resetCvForm() {
             window.clearTimeout(cvRequestTimeout);
+            window.clearTimeout(cvResponseTimeout);
             cvRequestId = null;
             cvRequestForm.elements.cvPassword.value = "";
             cvRequestForm.elements.requestId.value = "";
+            cvRequestForm.elements.responseOrigin.value = "";
             cvCodeInputs.forEach((input) => {
                 input.value = "";
             });
@@ -821,6 +825,23 @@
 
         cvCloseButton.addEventListener("click", closeCvDialog);
         cvCancelButton.addEventListener("click", closeCvDialog);
+
+        cvResponseFrame.addEventListener("load", () => {
+            if (!cvRequestId) {
+                return;
+            }
+
+            window.clearTimeout(cvResponseTimeout);
+            cvResponseTimeout = window.setTimeout(() => {
+                if (!cvRequestId) {
+                    return;
+                }
+                cvRequestId = null;
+                showCvError(
+                    "The resume service responded without confirming the code. Deploy the latest Code.gs as a new Apps Script Web App version, then try again."
+                );
+            }, 5000);
+        });
 
         cvCodeInputs.forEach((input, index) => {
             input.addEventListener("input", () => {
@@ -870,6 +891,12 @@
         });
 
         function showCvError(message) {
+            window.clearTimeout(cvRequestTimeout);
+            window.clearTimeout(cvResponseTimeout);
+            cvRequestId = null;
+            cvRequestForm.elements.cvPassword.value = "";
+            cvRequestForm.elements.requestId.value = "";
+            cvRequestForm.elements.responseOrigin.value = "";
             setCvBusy(false);
             cvError.textContent = message;
             cvError.hidden = false;
@@ -898,7 +925,6 @@
 
         window.addEventListener("message", (event) => {
             if (
-                event.source !== cvResponseFrame.contentWindow ||
                 !event.data ||
                 event.data.type !== "cv-download-result" ||
                 event.data.requestId !== cvRequestId
@@ -906,10 +932,18 @@
                 return;
             }
 
+            const isTrustedAppsScriptOrigin = event.origin === "https://script.google.com" ||
+                /^https:\/\/(?:[a-z0-9-]+\.)?script\.googleusercontent\.com$/i.test(event.origin);
+            if (event.source !== cvResponseFrame.contentWindow && !isTrustedAppsScriptOrigin) {
+                return;
+            }
+
             window.clearTimeout(cvRequestTimeout);
+            window.clearTimeout(cvResponseTimeout);
             cvRequestId = null;
             cvRequestForm.elements.cvPassword.value = "";
             cvRequestForm.elements.requestId.value = "";
+            cvRequestForm.elements.responseOrigin.value = "";
             if (!event.data.ok) {
                 showCvError(event.data.message || "The access code could not be verified. Please try again.");
                 return;
@@ -960,7 +994,8 @@
                     cvRequestId = null;
                     showCvError("The resume service did not respond. Please check the Apps Script deployment and try again.");
                 }
-            }, 45000);
+            }, 20000);
+            cvRequestForm.elements.responseOrigin.value = window.location.origin;
             cvRequestForm.submit();
         });
 

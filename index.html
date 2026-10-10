@@ -103,17 +103,17 @@
                     </li>
 
                     <li class="cv-nav-item">
-                        <button
+                        <a
+                            href="https://drive.google.com/file/d/1u8NXNvjnlzCwDbqMfdDnJ5y4ycqSEZCo/view?usp=sharing"
                             class="cv-nav-trigger"
-                            type="button"
-                            data-cv-modal-open
-                            aria-haspopup="dialog"
+                            target="_blank"
+                            rel="noreferrer"
                             aria-label="Download CV"
                             title="Download CV"
                         >
                             <img class="cv-nav-icon" src="docs.svg" alt="" aria-hidden="true" width="24" height="24">
                             <span class="cv-nav-label">Download CV</span>
-                        </button>
+                        </a>
                     </li>
 
                 </ul>
@@ -652,61 +652,8 @@
         </div>
     </footer>
 
-    <dialog id="cv-modal" class="cv-modal" aria-labelledby="cv-modal-title" aria-describedby="cv-modal-description">
-        <button class="cv-modal-close" type="button" aria-label="Close resume download dialog">&times;</button>
-        <div class="cv-modal-content">
-            <div class="cv-lock-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                    <rect x="5" y="10" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/>
-                    <path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                    <circle cx="12" cy="15" r="1.2" fill="currentColor"/>
-                    <path d="M12 16v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-            </div>
-            <h2 id="cv-modal-title">Protected Resume</h2>
-            <p id="cv-modal-description">Please enter the 6-digit access code to download resume.</p>
-
-            <form id="cv-code-form" novalidate>
-                <div class="cv-code-inputs" role="group" aria-label="Six-digit access code">
-                    <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" aria-label="Access code digit 1 of 6">
-                    <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Access code digit 2 of 6">
-                    <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Access code digit 3 of 6">
-                    <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Access code digit 4 of 6">
-                    <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Access code digit 5 of 6">
-                    <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Access code digit 6 of 6">
-                </div>
-                <p class="cv-modal-error" id="cv-modal-error" role="alert" hidden></p>
-                <p class="cv-modal-status" id="cv-modal-status" role="status" aria-live="polite"></p>
-                <div class="cv-modal-actions">
-                    <button class="cv-modal-cancel" type="button">CANCEL</button>
-                    <button class="cv-modal-submit" type="submit">DOWNLOAD</button>
-                </div>
-            </form>
-        </div>
-    </dialog>
-    <form
-        id="cv-download-request"
-        action="https://script.google.com/macros/s/AKfycbxLJwM-ElTS99xOURkZFUnb1QYcYuseOYd6JuzNRrjAjVsHvTDpk1xsT5gR54iUXwvnJw/exec"
-        method="post"
-        target="cv-download-response"
-        class="cv-request-form"
-        aria-hidden="true"
-    >
-        <input type="hidden" name="action" value="download-cv">
-        <input type="hidden" name="cvPassword">
-        <input type="hidden" name="requestId">
-        <input type="hidden" name="responseOrigin">
-    </form>
-    <iframe
-        class="cv-response-frame"
-        name="cv-download-response"
-        title="Secure resume download response"
-        tabindex="-1"
-        aria-hidden="true"
-    ></iframe>
-
     <script>
-        const navigationLinks = [...document.querySelectorAll('nav a[href^="#"]:not([data-cv-modal-open])')];
+        const navigationLinks = [...document.querySelectorAll('nav a[href^="#"]')];
         const navigation = document.querySelector("nav");
         const menuToggle = document.querySelector("#menu-toggle");
         const pageSections = navigationLinks
@@ -717,21 +664,6 @@
         )];
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
         const contactForm = document.querySelector(".contact-form");
-        const cvDialog = document.querySelector("#cv-modal");
-        const cvCodeForm = document.querySelector("#cv-code-form");
-        const cvCodeInputs = [...cvCodeForm.querySelectorAll(".cv-code-inputs input")];
-        const cvRequestForm = document.querySelector("#cv-download-request");
-        const cvResponseFrame = document.querySelector(".cv-response-frame");
-        const cvError = document.querySelector("#cv-modal-error");
-        const cvStatus = document.querySelector("#cv-modal-status");
-        const cvSubmitButton = cvCodeForm.querySelector(".cv-modal-submit");
-        const cvCloseButton = cvDialog.querySelector(".cv-modal-close");
-        const cvCancelButton = cvCodeForm.querySelector(".cv-modal-cancel");
-        let cvRequestId = null;
-        let cvRequestTimeout;
-        let cvResponseTimeout;
-        let cvLastTrigger = null;
-
         contactForm.addEventListener("submit", (event) => {
             event.preventDefault();
 
@@ -779,238 +711,6 @@
                 "aria-label",
                 isOpen ? "Close navigation menu" : "Open navigation menu"
             );
-        });
-
-        function clearCvFeedback() {
-            cvError.textContent = "";
-            cvError.hidden = true;
-            cvStatus.textContent = "";
-        }
-
-        function setCvBusy(isBusy) {
-            cvCodeInputs.forEach((input) => {
-                input.disabled = isBusy;
-            });
-            cvSubmitButton.disabled = isBusy;
-            cvSubmitButton.textContent = isBusy ? "CHECKING..." : "DOWNLOAD";
-        }
-
-        function resetCvForm() {
-            window.clearTimeout(cvRequestTimeout);
-            window.clearTimeout(cvResponseTimeout);
-            cvRequestId = null;
-            cvRequestForm.elements.cvPassword.value = "";
-            cvRequestForm.elements.requestId.value = "";
-            cvRequestForm.elements.responseOrigin.value = "";
-            cvCodeInputs.forEach((input) => {
-                input.value = "";
-            });
-            setCvBusy(false);
-            clearCvFeedback();
-        }
-
-        function closeCvDialog() {
-            if (cvDialog.open) {
-                cvDialog.close();
-            }
-        }
-
-        document.querySelectorAll("[data-cv-modal-open]").forEach((trigger) => {
-            trigger.addEventListener("click", (event) => {
-                event.preventDefault();
-                cvLastTrigger = trigger;
-                navigation.classList.remove("is-open");
-                menuToggle.setAttribute("aria-expanded", "false");
-                menuToggle.setAttribute("aria-label", "Open navigation menu");
-                resetCvForm();
-                cvDialog.showModal();
-                cvCodeInputs[0].focus();
-            });
-        });
-
-        cvDialog.addEventListener("close", () => {
-            resetCvForm();
-            if (window.matchMedia("(max-width: 640px)").matches && cvLastTrigger) {
-                menuToggle.focus();
-            } else if (cvLastTrigger) {
-                cvLastTrigger.focus();
-            }
-        });
-
-        cvCloseButton.addEventListener("click", closeCvDialog);
-        cvCancelButton.addEventListener("click", closeCvDialog);
-
-        cvResponseFrame.addEventListener("load", () => {
-            if (!cvRequestId) {
-                return;
-            }
-
-            window.clearTimeout(cvResponseTimeout);
-            cvResponseTimeout = window.setTimeout(() => {
-                if (!cvRequestId) {
-                    return;
-                }
-                cvRequestId = null;
-                showCvError(
-                    "The resume service responded without confirming the request. In Apps Script, deploy the latest Code.gs as a new Web App version, set it to execute as you, and allow access to Anyone. Then try again."
-                );
-            }, 5000);
-        });
-
-        cvCodeInputs.forEach((input, index) => {
-            input.addEventListener("input", () => {
-                const digits = input.value.replace(/\D/g, "");
-                if (digits.length > 1) {
-                    const startIndex = digits.length === 6 ? 0 : index;
-                    digits.slice(0, 6 - startIndex).split("").forEach((digit, offset) => {
-                        cvCodeInputs[startIndex + offset].value = digit;
-                    });
-                    cvCodeInputs[Math.min(startIndex + digits.length, 5)].focus();
-                } else {
-                    input.value = digits;
-                    if (digits && index < cvCodeInputs.length - 1) {
-                        cvCodeInputs[index + 1].focus();
-                    }
-                }
-                clearCvFeedback();
-            });
-
-            input.addEventListener("keydown", (event) => {
-                if (event.key === "Backspace" && !input.value && index > 0) {
-                    event.preventDefault();
-                    cvCodeInputs[index - 1].value = "";
-                    cvCodeInputs[index - 1].focus();
-                } else if (event.key === "ArrowLeft" && index > 0) {
-                    event.preventDefault();
-                    cvCodeInputs[index - 1].focus();
-                } else if (event.key === "ArrowRight" && index < cvCodeInputs.length - 1) {
-                    event.preventDefault();
-                    cvCodeInputs[index + 1].focus();
-                }
-            });
-
-            input.addEventListener("paste", (event) => {
-                const pastedDigits = event.clipboardData.getData("text").replace(/\D/g, "");
-                if (!pastedDigits) {
-                    return;
-                }
-                event.preventDefault();
-                const startIndex = pastedDigits.length === 6 ? 0 : index;
-                pastedDigits.slice(0, 6 - startIndex).split("").forEach((digit, offset) => {
-                    cvCodeInputs[startIndex + offset].value = digit;
-                });
-                cvCodeInputs[Math.min(startIndex + pastedDigits.length, 5)].focus();
-                clearCvFeedback();
-            });
-        });
-
-        function showCvError(message) {
-            window.clearTimeout(cvRequestTimeout);
-            window.clearTimeout(cvResponseTimeout);
-            cvRequestId = null;
-            cvRequestForm.elements.cvPassword.value = "";
-            cvRequestForm.elements.requestId.value = "";
-            cvRequestForm.elements.responseOrigin.value = "";
-            setCvBusy(false);
-            cvError.textContent = message;
-            cvError.hidden = false;
-            cvStatus.textContent = "";
-            cvCodeInputs.forEach((input) => {
-                input.value = "";
-            });
-            cvCodeInputs[0].focus();
-        }
-
-        function downloadVerifiedCv(result) {
-            const binary = window.atob(result.base64);
-            const bytes = new Uint8Array(binary.length);
-            for (let index = 0; index < binary.length; index += 1) {
-                bytes[index] = binary.charCodeAt(index);
-            }
-            const downloadUrl = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
-            const downloadLink = document.createElement("a");
-            downloadLink.href = downloadUrl;
-            downloadLink.download = result.fileName || "resume.pdf";
-            document.body.append(downloadLink);
-            downloadLink.click();
-            downloadLink.remove();
-            window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 60000);
-        }
-
-        window.addEventListener("message", (event) => {
-            if (
-                !event.data ||
-                event.data.type !== "cv-download-result" ||
-                event.data.requestId !== cvRequestId
-            ) {
-                return;
-            }
-
-            const isTrustedAppsScriptOrigin = event.origin === "https://script.google.com" ||
-                /^https:\/\/(?:[a-z0-9-]+\.)?script\.googleusercontent\.com$/i.test(event.origin);
-            if (event.source !== cvResponseFrame.contentWindow && !isTrustedAppsScriptOrigin) {
-                return;
-            }
-
-            window.clearTimeout(cvRequestTimeout);
-            window.clearTimeout(cvResponseTimeout);
-            cvRequestId = null;
-            cvRequestForm.elements.cvPassword.value = "";
-            cvRequestForm.elements.requestId.value = "";
-            cvRequestForm.elements.responseOrigin.value = "";
-            if (!event.data.ok) {
-                showCvError(event.data.message || "The access code could not be verified. Please try again.");
-                return;
-            }
-
-            try {
-                if (typeof event.data.base64 !== "string" || !event.data.base64 || !event.data.fileName) {
-                    throw new Error("The Apps Script response did not include a resume PDF.");
-                }
-                downloadVerifiedCv(event.data);
-                cvStatus.textContent = "Access code verified. Your resume download has started.";
-                setCvBusy(false);
-                cvCodeInputs.forEach((input) => {
-                    input.value = "";
-                });
-            } catch (error) {
-                showCvError("The resume could not be downloaded. Please try again or contact the portfolio owner.");
-                console.error("Resume download failed:", error);
-            }
-        });
-
-        cvCodeForm.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const accessCode = cvCodeInputs.map((input) => input.value).join("");
-            if (!/^\d{6}$/.test(accessCode)) {
-                showCvError("Please enter all 6 digits of your access code.");
-                const firstEmptyInput = cvCodeInputs.find((input) => !input.value);
-                (firstEmptyInput || cvCodeInputs[0]).focus();
-                return;
-            }
-
-            const endpoint = cvRequestForm.getAttribute("action").trim();
-            if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:[?#].*)?$/.test(endpoint)) {
-                showCvError("Resume download is not configured yet. Please contact the portfolio owner.");
-                return;
-            }
-
-            clearCvFeedback();
-            setCvBusy(true);
-            cvStatus.textContent = "Verifying access code...";
-            cvRequestId = window.crypto && window.crypto.randomUUID
-                ? window.crypto.randomUUID()
-                : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-            cvRequestForm.elements.cvPassword.value = accessCode;
-            cvRequestForm.elements.requestId.value = cvRequestId;
-            cvRequestTimeout = window.setTimeout(() => {
-                if (cvRequestId) {
-                    cvRequestId = null;
-                    showCvError("The resume service did not respond. Please check the Apps Script deployment and try again.");
-                }
-            }, 20000);
-            cvRequestForm.elements.responseOrigin.value = window.location.origin;
-            cvRequestForm.submit();
         });
 
         document.addEventListener("keydown", (event) => {

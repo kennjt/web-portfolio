@@ -1,6 +1,6 @@
 const RECIPIENT_EMAIL = "tjkennethbobadilla@gmail.com";
 const CV_FILE_ID = "1u8NXNvjnlzCwDbqMfdDnJ5y4ycqSEZCo";
-const CV_PORTFOLIO_ORIGIN = "https://kennjt.github.io";
+const CV_DRIVE_URL = "https://drive.google.com/file/d/" + CV_FILE_ID + "/view?usp=sharing";
 
 function doGet() {
     return cvPasswordPage("");
@@ -45,69 +45,31 @@ function doPost(e) {
 function handleCvDownload(fields) {
     const properties = PropertiesService.getScriptProperties();
     const expectedPassword = properties.getProperty("CV_DOWNLOAD_PASSWORD");
-    const requestId = String(fields.requestId || "");
-    const isModalRequest = /^[A-Za-z0-9-]{1,80}$/.test(requestId);
-    const responseOrigin = String(fields.responseOrigin || "");
-    const respondWithError = (message) => isModalRequest
-        ? cvDownloadResultPage(requestId, { ok: false, message: message }, responseOrigin)
-        : cvPasswordPage(message);
 
     if (!expectedPassword || !/^\d{6}$/.test(expectedPassword)) {
-        return respondWithError("CV access is not configured with a 6-digit code. Please contact the portfolio owner.");
+        return cvPasswordPage("CV access is not configured with a 6-digit code. Please contact the portfolio owner.");
     }
 
     const candidate = String(fields.cvPassword || "");
     if (!/^\d{6}$/.test(candidate) || !constantTimeEquals(candidate, expectedPassword)) {
-        return respondWithError("Incorrect access code. Please try again.");
+        return cvPasswordPage("Incorrect access code. Please try again.");
     }
 
-    try {
-        const file = DriveApp.getFileById(CV_FILE_ID);
-        const blob = file.getBlob();
-        if (blob.getContentType() !== "application/pdf") {
-            return respondWithError("The CV file is not a PDF. Please contact the portfolio owner.");
-        }
-
-        const base64 = Utilities.base64Encode(blob.getBytes());
-        const fileName = file.getName().replace(/[^\w .()-]/g, "_");
-        return isModalRequest
-            ? cvDownloadResultPage(requestId, {
-                ok: true,
-                base64: base64,
-                fileName: fileName
-            }, responseOrigin)
-            : cvReadyPage(base64, fileName);
-    } catch (error) {
-        console.error("CV download failed: " + error);
-        return respondWithError("The CV could not be retrieved. Please contact the portfolio owner.");
-    }
+    return cvDriveRedirectPage();
 }
 
-function cvDownloadResultPage(requestId, result, responseOrigin) {
-    const targetOrigin = responseOrigin === CV_PORTFOLIO_ORIGIN
-        ? CV_PORTFOLIO_ORIGIN
-        : responseOrigin === "null"
-            ? "*"
-            : CV_PORTFOLIO_ORIGIN;
-    const payload = JSON.stringify({
-        type: "cv-download-result",
-        requestId: requestId,
-        ok: result.ok,
-        message: result.message || "",
-        base64: result.base64 || "",
-        fileName: result.fileName || ""
-    }).replace(/[<\u2028\u2029]/g, (character) => ({
-        "<": "\\u003c",
-        "\u2028": "\\u2028",
-        "\u2029": "\\u2029"
-    })[character]);
-
+function cvDriveRedirectPage() {
     return HtmlService.createHtmlOutput(
-        "<!doctype html><html lang=\"en\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Resume download</title>" +
-        "<body><script>window.top.postMessage(" + payload + ", " + JSON.stringify(targetOrigin) + ");</script></body></html>"
-    )
-        .setTitle("Resume download")
-        .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+        "<!doctype html><html lang=\"en\" data-theme=\"dark\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+        cvPageHead("Resume Ready") +
+        "<body>" + cvThemeButton() +
+        "<main class=\"page-shell\"><section class=\"resume-card\" aria-labelledby=\"resume-title\">" +
+        "<div class=\"lock-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\"><rect x=\"5\" y=\"10\" width=\"14\" height=\"11\" rx=\"2\" stroke=\"currentColor\" stroke-width=\"1.7\"/><path d=\"M8 10V7a4 4 0 1 1 8 0v3\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\"/><circle cx=\"12\" cy=\"15\" r=\"1.2\" fill=\"currentColor\"/><path d=\"M12 16v2\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg></div>" +
+        "<h1 id=\"resume-title\">Access Granted</h1><p class=\"card-description\">Your access code is verified. Continue to your resume in Google Drive.</p>" +
+        "<a class=\"primary-button\" href=\"" + escapeHtml(CV_DRIVE_URL) + "\" target=\"_top\">OPEN RESUME</a></section></main>" +
+        cvThemeScript() +
+        "</body></html>"
+    ).setTitle("Resume Ready");
 }
 
 function constantTimeEquals(candidate, expected) {
@@ -143,25 +105,6 @@ function cvPasswordPage(message) {
     ).setTitle("Download CV");
 }
 
-function cvReadyPage(base64, fileName) {
-    const safeBase64 = JSON.stringify(base64);
-    const safeFileName = JSON.stringify(fileName.replace(/[^\w .()-]/g, "_"));
-
-    return HtmlService.createHtmlOutput(
-        "<!doctype html><html lang=\"en\" data-theme=\"dark\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
-        cvPageHead("Resume Ready") +
-        "<body>" + cvThemeButton() +
-        "<main class=\"page-shell\"><section class=\"resume-card\" aria-labelledby=\"resume-title\">" +
-        "<div class=\"lock-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\"><rect x=\"5\" y=\"10\" width=\"14\" height=\"11\" rx=\"2\" stroke=\"currentColor\" stroke-width=\"1.7\"/><path d=\"M8 10V7a4 4 0 1 1 8 0v3\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\"/><circle cx=\"12\" cy=\"15\" r=\"1.2\" fill=\"currentColor\"/><path d=\"M12 16v2\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg></div>" +
-        "<h1 id=\"resume-title\">Access Granted</h1><p class=\"card-description\">Your resume is ready to download.</p>" +
-        "<button id=\"download-cv\" class=\"primary-button\" type=\"button\">DOWNLOAD RESUME</button></section></main>" +
-        "<script>const encoded=" + safeBase64 + ";const fileName=" + safeFileName + ";" +
-        "document.querySelector('#download-cv').addEventListener('click',()=>{const binary=atob(encoded);const bytes=new Uint8Array(binary.length);for(let i=0;i<binary.length;i+=1)bytes[i]=binary.charCodeAt(i);const url=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));const link=document.createElement('a');link.href=url;link.download=fileName;link.click();setTimeout(()=>URL.revokeObjectURL(url),60000)});</script>" +
-        cvThemeScript() +
-        "</body></html>"
-    ).setTitle("Download CV");
-}
-
 function cvPageHead(title) {
     return "<title>" + escapeHtml(title) + "</title>" +
         "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">" +
@@ -175,7 +118,7 @@ function cvPageHead(title) {
         ".lock-icon{width:3.25rem;height:3.25rem;margin:0 auto 1.1rem;display:grid;place-items:center;border:1px solid rgba(var(--accent-rgb),.42);border-radius:50%;background:rgba(var(--accent-rgb),.12);color:var(--accent)}.lock-icon svg{width:1.75rem;height:1.75rem}" +
         "h1{margin:0;color:var(--text);font:700 1.35rem/1.4 'Space Mono',monospace;letter-spacing:-.035em}.card-description{margin:.7rem 0 1.8rem;color:var(--muted);font-size:.82rem;line-height:1.65}" +
         "form{text-align:left}label{display:block;margin-bottom:.45rem;color:var(--muted);font-size:.75rem;font-weight:600}.password-field{display:block;width:100%;min-height:3.25rem;margin:0 0 1rem;padding:.8rem 1rem;border:1px solid var(--field-border);border-radius:4px;background:var(--field);color:var(--text);font:500 .95rem Sora,sans-serif;letter-spacing:.08em}.password-field::placeholder{color:var(--muted);letter-spacing:normal}.password-field:focus{border-color:var(--accent);outline:2px solid rgba(var(--accent-rgb),.22);outline-offset:2px}" +
-        ".primary-button{width:100%;min-height:3.1rem;padding:.8rem 1.25rem;border:1px solid var(--accent-strong);border-radius:4px;background:var(--accent-strong);color:#0D0D0D;box-shadow:0 3px 0 rgba(0,0,0,.22);cursor:pointer;font:700 .76rem 'Space Mono',monospace;letter-spacing:.07em;transition:transform 160ms ease,background-color 160ms ease,color 160ms ease}.primary-button:hover{transform:translateY(-1px);background:transparent;color:var(--text)}html[data-theme=light] .primary-button{color:#FFFFFF}.primary-button:focus-visible,.theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}" +
+        ".primary-button{display:flex;width:100%;min-height:3.1rem;align-items:center;justify-content:center;padding:.8rem 1.25rem;border:1px solid var(--accent-strong);border-radius:4px;background:var(--accent-strong);color:#0D0D0D;box-shadow:0 3px 0 rgba(0,0,0,.22);cursor:pointer;font:700 .76rem 'Space Mono',monospace;letter-spacing:.07em;text-decoration:none;transition:transform 160ms ease,background-color 160ms ease,color 160ms ease}.primary-button:hover{transform:translateY(-1px);background:transparent;color:var(--text)}html[data-theme=light] .primary-button{color:#FFFFFF}.primary-button:focus-visible,.theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}" +
         ".cv-error{margin:0 0 1rem;color:#F08D84;font-size:.78rem;line-height:1.5}.theme-toggle{position:fixed;top:1rem;right:1rem;display:grid;width:2.75rem;height:2.75rem;place-items:center;padding:0;border:1px solid var(--border);border-radius:50%;background:var(--card);color:var(--accent);box-shadow:0 4px 16px rgba(0,0,0,.18);cursor:pointer}.theme-toggle:hover{transform:scale(1.05)}.theme-icon{width:1.3rem;height:1.3rem;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.theme-icon-moon,html[data-theme=light] .theme-icon-sun{display:none}html[data-theme=light] .theme-icon-moon{display:block}" +
         "@media(max-width:420px){body{padding:1rem}.resume-card{padding:2.4rem 1.25rem 1.5rem;border-radius:1rem}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}" +
         "</style>";

@@ -103,17 +103,16 @@
                     </li>
 
                     <li class="cv-nav-item">
-                        <a
-                            href="https://drive.google.com/file/d/1u8NXNvjnlzCwDbqMfdDnJ5y4ycqSEZCo/view?usp=sharing"
+                        <button
+                            type="button"
                             class="cv-nav-trigger"
-                            target="_blank"
-                            rel="noreferrer"
+                            data-resume-password-open
                             aria-label="Download CV"
                             title="Download CV"
                         >
                             <img class="cv-nav-icon" src="docs.svg" alt="" aria-hidden="true" width="24" height="24">
                             <span class="cv-nav-label">Download CV</span>
-                        </a>
+                        </button>
                     </li>
 
                 </ul>
@@ -652,6 +651,41 @@
         </div>
     </footer>
 
+    <dialog id="resume-password-modal" class="resume-password-modal" aria-labelledby="resume-password-title">
+        <button class="resume-password-close" type="button" aria-label="Close password dialog">&times;</button>
+        <div class="resume-password-content">
+            <div class="cv-lock-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <rect x="5" y="10" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                    <path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                    <circle cx="12" cy="15" r="1.2" fill="currentColor"/>
+                    <path d="M12 16v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h2 id="resume-password-title">Protected Resume</h2>
+            <p>Please enter the password to download resume.</p>
+            <form id="resume-password-form" novalidate>
+                <label class="resume-password-label" for="resume-password">Password</label>
+                <input
+                    class="resume-password-input"
+                    id="resume-password"
+                    type="password"
+                    autocomplete="current-password"
+                    aria-describedby="resume-password-error resume-password-success"
+                    required
+                >
+                <p class="resume-password-error" id="resume-password-error" role="alert" hidden></p>
+                <p class="resume-password-success" id="resume-password-success" role="status" aria-live="polite" hidden>
+                    Password correct! Directing you to another link...
+                </p>
+                <div class="resume-password-actions">
+                    <button class="resume-password-cancel" type="button">CANCEL</button>
+                    <button class="resume-password-submit" type="submit">CONTINUE</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
     <script>
         const navigationLinks = [...document.querySelectorAll('nav a[href^="#"]')];
         const navigation = document.querySelector("nav");
@@ -664,6 +698,101 @@
         )];
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
         const contactForm = document.querySelector(".contact-form");
+        const resumePasswordDialog = document.querySelector("#resume-password-modal");
+        const resumePasswordForm = document.querySelector("#resume-password-form");
+        const resumePasswordInput = document.querySelector("#resume-password");
+        const resumePasswordError = document.querySelector("#resume-password-error");
+        const resumePasswordSuccess = document.querySelector("#resume-password-success");
+        const resumePasswordSubmit = resumePasswordForm.querySelector(".resume-password-submit");
+        const resumePassword = "#resume-!@#";
+        const resumeDriveUrl = "https://drive.google.com/file/d/1u8NXNvjnlzCwDbqMfdDnJ5y4ycqSEZCo/view?usp=sharing";
+
+        document.querySelectorAll("[data-resume-password-open]").forEach((trigger) => {
+            trigger.addEventListener("click", () => {
+                navigation.classList.remove("is-open");
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Open navigation menu");
+                resumePasswordError.hidden = true;
+                resumePasswordError.textContent = "";
+                resumePasswordSuccess.hidden = true;
+                resumePasswordInput.value = "";
+                resumePasswordDialog.showModal();
+                resumePasswordInput.focus();
+            });
+        });
+
+        resumePasswordForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (resumePasswordSubmit.disabled) {
+                return;
+            }
+            resumePasswordError.hidden = true;
+            resumePasswordError.textContent = "";
+            resumePasswordSuccess.hidden = true;
+
+            resumePasswordSubmit.disabled = true;
+            resumePasswordSubmit.textContent = "CHECKING...";
+            const isPasswordCorrect = resumePasswordInput.value === resumePassword;
+
+            await new Promise((resolve) => window.setTimeout(resolve, 1000));
+            resumePasswordSubmit.disabled = false;
+            resumePasswordSubmit.textContent = "CONTINUE";
+
+            if (!isPasswordCorrect) {
+                resumePasswordError.textContent = "Incorrect password. Please try again.";
+                resumePasswordError.hidden = false;
+                resumePasswordInput.value = "";
+                resumePasswordInput.focus();
+                return;
+            }
+
+            resumePasswordSuccess.hidden = false;
+            await new Promise((resolve) => window.setTimeout(resolve, 1000));
+            if (!resumePasswordDialog.open) {
+                return;
+            }
+
+            let resumeTab;
+            try {
+                resumeTab = window.open(resumeDriveUrl, "_blank");
+                if (!resumeTab) {
+                    throw new Error("The browser blocked the new tab.");
+                }
+                resumeTab.opener = null;
+                resumeTab.focus();
+                resumePasswordDialog.close();
+            } catch (error) {
+                if (resumeTab && !resumeTab.closed) {
+                    resumeTab.close();
+                }
+                console.error("Resume could not be opened in a new tab:", error);
+                resumePasswordSuccess.hidden = true;
+                resumePasswordError.textContent = "Your browser blocked the new tab. Use the link below to open your resume.";
+                resumePasswordError.hidden = false;
+                const fallbackLink = document.createElement("a");
+                fallbackLink.href = resumeDriveUrl;
+                fallbackLink.target = "_blank";
+                fallbackLink.rel = "noopener noreferrer";
+                fallbackLink.textContent = "Open resume in Google Drive";
+                resumePasswordError.append(" ", fallbackLink);
+            }
+        });
+
+        resumePasswordDialog.querySelector(".resume-password-close").addEventListener("click", () => {
+            resumePasswordDialog.close();
+        });
+        resumePasswordDialog.querySelector(".resume-password-cancel").addEventListener("click", () => {
+            resumePasswordDialog.close();
+        });
+        resumePasswordDialog.addEventListener("close", () => {
+            resumePasswordForm.reset();
+            resumePasswordError.hidden = true;
+            resumePasswordError.textContent = "";
+            resumePasswordSuccess.hidden = true;
+            resumePasswordSubmit.disabled = false;
+            resumePasswordSubmit.textContent = "CONTINUE";
+        });
+
         contactForm.addEventListener("submit", (event) => {
             event.preventDefault();
 

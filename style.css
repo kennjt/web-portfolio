@@ -1135,6 +1135,269 @@ html[data-theme="light"] .cv-nav-item .cv-nav-trigger {
     background-color: #0D0D0D;
 }
 
+.resume-password-modal {
+    position: relative;
+    width: min(27rem, calc(100% - 2rem));
+    max-width: none;
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 2.5rem 2.25rem 2rem;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 1.125rem;
+    background: #1B1B1B;
+    color: #F5F5F2;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+    font-family: "Sora", sans-serif;
+}
+
+.resume-password-modal[open] {
+    animation: resumePasswordEnter 180ms ease-out both;
+}
+
+.resume-password-modal::backdrop {
+    background: rgba(0, 0, 0, 0.76);
+    backdrop-filter: blur(5px);
+}
+
+.resume-password-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.8rem;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #A8A8A8;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 1.75rem;
+    line-height: 1;
+}
+
+.resume-password-close:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #FFFFFF;
+}
+
+.resume-password-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.resume-password-content h2 {
+    margin: 0;
+    color: #F5F5F2;
+    font-family: "Space Mono", monospace;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+}
+
+.resume-password-content > p {
+    max-width: 21rem;
+    margin: 0.7rem 0 1.5rem;
+    color: #A9A9A9;
+    font-size: 0.82rem;
+    line-height: 1.65;
+}
+
+#resume-password-form {
+    width: 100%;
+    text-align: left;
+}
+
+.resume-password-label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: #A9A9A9;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.resume-password-input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    background: #111111;
+    color: #F5F5F2;
+    font: 500 0.95rem "Sora", sans-serif;
+}
+
+.resume-password-input:focus {
+    border-color: #FFFFFF;
+    outline: 2px solid rgba(255, 255, 255, 0.22);
+    outline-offset: 2px;
+}
+
+.resume-password-error {
+    margin: 0.75rem 0 0;
+    color: #F08D84;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.resume-password-success {
+    margin: 0.75rem 0 0;
+    color: #8FD6A8;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.resume-password-error[hidden] {
+    display: none;
+}
+
+.resume-password-success[hidden] {
+    display: none;
+}
+
+.resume-password-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.35rem;
+}
+
+.resume-password-actions button {
+    min-width: 0;
+    min-height: 3.1rem;
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Space Mono", monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    transition: transform 160ms ease, filter 160ms ease;
+}
+
+.resume-password-cancel {
+    background: #101010;
+    color: #D4D4D0;
+}
+
+.resume-password-submit {
+    border-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    color: #0D0D0D !important;
+}
+
+.resume-password-actions button:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.resume-password-close:focus-visible,
+.resume-password-actions button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+@keyframes resumePasswordEnter {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 640px) {
+    .resume-password-modal {
+        width: calc(100% - 1.5rem);
+        padding: 2.4rem 1.25rem 1.5rem;
+        border-radius: 1rem;
+    }
+
+    .resume-password-actions {
+        gap: 0.6rem;
+    }
+
+    .resume-password-actions button {
+        min-height: 3rem;
+        padding-inline: 0.5rem;
+        font-size: 0.7rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .resume-password-modal[open],
+    .resume-password-actions button {
+        animation: none;
+        transition: none;
+    }
+}
+
+html[data-theme="light"] .resume-password-modal {
+    border-color: rgba(13, 13, 13, 0.16);
+    background: #F5F5F2;
+    color: #0D0D0D;
+    box-shadow: 0 24px 80px rgba(13, 13, 13, 0.24);
+}
+
+html[data-theme="light"] .resume-password-content h2 {
+    color: #0D0D0D;
+}
+
+html[data-theme="light"] .resume-password-content > p,
+html[data-theme="light"] .resume-password-label {
+    color: #5B5B58;
+}
+
+html[data-theme="light"] .resume-password-close {
+    color: #5B5B58;
+}
+
+html[data-theme="light"] .resume-password-close:hover {
+    background: rgba(13, 13, 13, 0.06);
+    color: #0D0D0D;
+}
+
+html[data-theme="light"] .resume-password-input {
+    border-color: rgba(13, 13, 13, 0.2);
+    background: #FFFFFF;
+    color: #0D0D0D;
+}
+
+html[data-theme="light"] .resume-password-cancel {
+    background: #FFFFFF;
+    color: #454542;
+}
+
+html[data-theme="light"] .resume-password-success {
+    color: #217A43;
+}
+
+html[data-theme="light"] .resume-password-submit {
+    border-color: #0D0D0D !important;
+    background: #0D0D0D !important;
+    color: #FFFFFF !important;
+}
+
+html[data-theme="light"] .resume-password-actions button:hover {
+    filter: brightness(0.94);
+}
+
+html[data-theme="light"] .resume-password-input:focus {
+    border-color: #0D0D0D;
+    outline-color: rgba(13, 13, 13, 0.18);
+}
+
 html[data-theme] .theme-toggle {
     transition:
         color 350ms ease,
